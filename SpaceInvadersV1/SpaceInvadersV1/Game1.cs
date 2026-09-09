@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using CoreClassLibrary.Entities;
 using System.Collections.Generic;
 using CoreClassLibrary.Systems;
+using CoreClassLibrary.Managers;
 
 
 namespace SpaceInvadersV1;
@@ -11,20 +12,23 @@ namespace SpaceInvadersV1;
 public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
+    private DisplayManager _displayManager;
     private SpriteBatch _spriteBatch;
-    Texture2D _player;
-    Vector2 pos1;
-    private EnemyManager _enemyManager = new EnemyManager(); public Game1()
+    private Player _player;
+
+    public Game1()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
+        //Inställning för fönsterstorlek 
+        _displayManager = new DisplayManager(_graphics, 2560, 1440, true);
+
     }
 
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
-
 
         base.Initialize();
     }
@@ -34,11 +38,15 @@ public class Game1 : Game
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         // TODO: use this.Content to load your game content here
 
-        _player = Content.Load<Texture2D>("Ship_01-1");
-        Texture2D enemyTexture = Content.Load<Texture2D>("alien02_sprite02");
+        //laddar upp player sprite och dens start position. 
+        Texture2D _playerSprite = Content.Load<Texture2D>("Ship_01-1");
 
-        _enemyManager.SpawnEnemyFleet(enemyTexture, new Vector2(50, 50));
+        float startX = (_displayManager.Width / 2f - _playerSprite.Width / 2f);
+        float startY = _displayManager.Height - _playerSprite.Height;
 
+        //start position för spelare 
+        Vector2 startPosition = new Vector2(startX);
+        _player = new Player(_playerSprite, startPosition);
 
 
     }
@@ -58,8 +66,9 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.Black);
 
         _spriteBatch.Begin(); //preparerar rendering. 
-        _spriteBatch.Draw(_player, Vector2.Zero, Color.Wheat); // ritar ut spriten på skärmen
-        _enemyManager.Draw(_spriteBatch);
+        //Renderar player till fönstret
+        _player.Draw(_spriteBatch);
+
         _spriteBatch.End();//avslutar sprite batch när spelet är avslutad. 
         // TODO: Add your drawing code here
         base.Draw(gameTime);
