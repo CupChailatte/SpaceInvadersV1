@@ -16,7 +16,7 @@ public class Game1 : Game
 
     private SpriteBatch _spriteBatch;
     private Player _player;
-    private Enemy _enemy;
+    private Enemy _enemy; 
 
     public Game1()
     {
@@ -31,7 +31,7 @@ public class Game1 : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic herec
-
+         
         base.Initialize();
     }
 
@@ -47,14 +47,10 @@ public class Game1 : Game
 
         float startX = (_displayManager.Width / 2f - _playerSprite.Width / 2f);
         float startY = _displayManager.Height - _playerSprite.Height - 20f;
-
-        int stopX = _displayManager.Width - _enemySprite.Width; 
-        int stopY = _displayManager.Height - _enemySprite.Height; 
-
         //start position för spelare 
         Vector2 startPosition = new Vector2(startX, startY);
         _player = new Player(_playerSprite, startPosition);
-        _enemy = new Enemy(_enemySprite, new Vector2(50,40), stopX, stopY); // Skapar en instans av Enemy med startposition och stop position.
+        _enemy = new Enemy(_enemySprite, new Vector2(50,50)); 
     }
 
     protected override void Update(GameTime gameTime)
@@ -65,7 +61,6 @@ public class Game1 : Game
         // TODO: Add your update logic here
         InputManager.Update(); //updaterar tangent och mustillstånd först 
         _player.Update(gameTime, _displayManager.Width); // Skicka vidare updates till spelare
-       _enemy.Update(); 
 
 
         base.Update(gameTime);

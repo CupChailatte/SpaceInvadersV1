@@ -26,8 +26,6 @@ public class Player
 
         if (InputManager.IsKeyDown(Keys.Left) || InputManager.IsKeyDown(Keys.A))
         {
-            Console.WriteLine("Left key pressed");
-
             PlayerPosition.X -= Speed * deltaTime;
         }
         if (InputManager.IsKeyDown(Keys.Right) || InputManager.IsKeyDown(Keys.D))
