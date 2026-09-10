@@ -15,6 +15,7 @@ public class DisplayManager
         SetResolution(width, height);
     }
 
+    //Metod som applicerar ändringarna från värderna. 
     public void SetResolution(int width, int height)
     {
         Width = width;

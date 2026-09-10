@@ -12,6 +12,7 @@ public class Player
     private readonly Texture2D _playerSprite;
     public Vector2 PlayerPosition;
     public float Speed { get; set; } = 1000f;
+    Bullet _bullet;
 
     public Player(Texture2D playerSprite, Vector2 playerPosition)
     {
@@ -32,6 +33,14 @@ public class Player
         {
             PlayerPosition.X += Speed * deltaTime;
         }
+        //* Skjuta /
+        // TODO: Mouse input 
+        if (InputManager.IsKeyDown(Keys.Space))
+        {
+            _bullet.Update();
+        }
+
+
         //Håller spelaren infanför spelfönstret. 
         PlayerPosition.X = MathHelper.Clamp(PlayerPosition.X, 0, screenWidth - _playerSprite.Width);
     }

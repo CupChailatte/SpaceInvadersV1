@@ -13,7 +13,8 @@ public class Game1 : Game
 {
     private readonly GraphicsDeviceManager _graphics;
     private readonly DisplayManager _displayManager;
-    private EnemyManager _enemyManager;  
+    private EnemyManager _enemyManager;
+    private Bullet _bullet;
 
     private SpriteBatch _spriteBatch;
     private Player _player;
@@ -31,7 +32,7 @@ public class Game1 : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic herec
-         
+
         base.Initialize();
     }
 
@@ -42,17 +43,24 @@ public class Game1 : Game
 
         //laddar upp player sprite och dens start position. 
         Texture2D _playerSprite = Content.Load<Texture2D>("Ship_01-1");
-        Texture2D _enemySprite = Content.Load<Texture2D>("alien02_sprite01"); 
+        Texture2D _enemySprite = Content.Load<Texture2D>("alien02_sprite01");
+        Texture2D _bulletSprite = Content.Load<Texture2D>("bullet_SI-1");
 
-      //start position för spelare 
+
+
+
+        //start position för spelare 
         float startX = (_displayManager.Width / 2f - _playerSprite.Width / 2f);
         float startY = _displayManager.Height - _playerSprite.Height - 20f;
         Vector2 startPosition = new Vector2(startX, startY);
+
+
         _player = new Player(_playerSprite, startPosition);
-        
+        _bullet = new Bullet(_bulletSprite, startPosition, 400f, 10);
+
         //  ---Enemies---
-        _enemyManager = new EnemyManager(_enemySprite); 
-        _enemyManager.SpawnEnemyGrid(3,7); // Spawnar in enemies från EnemyManager method. 
+        _enemyManager = new EnemyManager(_enemySprite);
+        _enemyManager.SpawnEnemyGrid(3, 7); // Spawnar in enemies från EnemyManager method. 
     }
 
     protected override void Update(GameTime gameTime)
@@ -64,8 +72,8 @@ public class Game1 : Game
         InputManager.Update(); //updaterar tangent och mustillstånd först 
         _player.Update(gameTime, _displayManager.Width); // Skicka vidare updates till spelare
 
-        _enemyManager.Update(gameTime); 
-        
+        _enemyManager.Update(gameTime);
+
         base.Update(gameTime);
     }
 
@@ -76,7 +84,8 @@ public class Game1 : Game
         _spriteBatch.Begin(); //preparerar rendering. 
         //Renderar player till fönstret
         _player.Draw(_spriteBatch);
-        _enemyManager.Draw(_spriteBatch); 
+        _bullet.Draw(_spriteBatch);
+        _enemyManager.Draw(_spriteBatch);
 
         _spriteBatch.End();//avslutar sprite batch när spelet är avslutad. 
         // TODO: Add your drawing code here
