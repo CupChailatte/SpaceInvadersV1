@@ -13,18 +13,20 @@ public class EnemyManager
     private Texture2D _enemyTexture;
 
 //Consturctorn 
-    public EnemyManager(Texture2D texture)
+    public EnemyManager(Texture2D texture) //Initierar properties så att man kan använda dem
     {
         _enemyTexture = texture; 
         _enemies = new List<Enemy>(); 
 
     }
 
+    // Metod som spawnar in enemies, beroend på hur många columner, rows som är inlagd. 
     public void SpawnEnemyGrid(int row, int columns)
     {
+        //starts positionen
         float startX = 60f; 
         float startY = 50f;
-
+        //Distans mellan fienden 
         float spacingX = 150f;
         float spacingY = 100f; 
         for (int r = 0; r < row; r++)
@@ -35,8 +37,8 @@ public class EnemyManager
                 float y = startY + (r * spacingY); 
 
                 Vector2 spawnPosition = new Vector2(x,y); 
-
-                _enemies.Add( new Enemy(_enemyTexture, spawnPosition)); 
+                //Lägger till Enemy objekter i listan av enemies, (Enemy classen tar två arguementer)
+                _enemies.Add(new Enemy(_enemyTexture, spawnPosition)); 
             }
         }
     }

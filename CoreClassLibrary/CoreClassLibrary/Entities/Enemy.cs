@@ -10,11 +10,10 @@ namespace CoreClassLibrary.Entities;
 public class Enemy
 {
     public Vector2 Position {get; set;}
-    public int Healthv{get; set;} = 100; 
+    public int Health{get; set;} = 400; 
     private Texture2D _enemyTexture;
-    private float _speed; 
+    private float _speed = 0.1f;//Fiende Hastighet
     
-
     public Enemy(Texture2D texture, Vector2 position)
     {
         _enemyTexture = texture; 

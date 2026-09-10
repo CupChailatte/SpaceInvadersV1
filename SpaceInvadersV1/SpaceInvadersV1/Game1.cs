@@ -44,12 +44,13 @@ public class Game1 : Game
         Texture2D _playerSprite = Content.Load<Texture2D>("Ship_01-1");
         Texture2D _enemySprite = Content.Load<Texture2D>("alien02_sprite01"); 
 
-
+      //start position för spelare 
         float startX = (_displayManager.Width / 2f - _playerSprite.Width / 2f);
         float startY = _displayManager.Height - _playerSprite.Height - 20f;
-        //start position för spelare 
         Vector2 startPosition = new Vector2(startX, startY);
         _player = new Player(_playerSprite, startPosition);
+        
+        //  ---Enemies---
         _enemyManager = new EnemyManager(_enemySprite); 
         _enemyManager.SpawnEnemyGrid(3,7); // Spawnar in enemies från EnemyManager method. 
     }
@@ -63,7 +64,8 @@ public class Game1 : Game
         InputManager.Update(); //updaterar tangent och mustillstånd först 
         _player.Update(gameTime, _displayManager.Width); // Skicka vidare updates till spelare
 
-
+        _enemyManager.Update(gameTime); 
+        
         base.Update(gameTime);
     }
 
