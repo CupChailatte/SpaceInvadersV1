@@ -13,10 +13,10 @@ public class Game1 : Game
 {
     private readonly GraphicsDeviceManager _graphics;
     private readonly DisplayManager _displayManager;
+    private EnemyManager _enemyManager;  
 
     private SpriteBatch _spriteBatch;
     private Player _player;
-    private Enemy _enemy; 
 
     public Game1()
     {
@@ -50,7 +50,8 @@ public class Game1 : Game
         //start position för spelare 
         Vector2 startPosition = new Vector2(startX, startY);
         _player = new Player(_playerSprite, startPosition);
-        _enemy = new Enemy(_enemySprite, new Vector2(50,50)); 
+        _enemyManager = new EnemyManager(_enemySprite); 
+        _enemyManager.SpawnEnemyGrid(3,7); // Spawnar in enemies från EnemyManager method. 
     }
 
     protected override void Update(GameTime gameTime)
@@ -73,7 +74,7 @@ public class Game1 : Game
         _spriteBatch.Begin(); //preparerar rendering. 
         //Renderar player till fönstret
         _player.Draw(_spriteBatch);
-        _enemy.Draw(_spriteBatch); 
+        _enemyManager.Draw(_spriteBatch); 
 
         _spriteBatch.End();//avslutar sprite batch när spelet är avslutad. 
         // TODO: Add your drawing code here
