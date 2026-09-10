@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace CoreClassLibrary.Systems;
 
+/*
 public class EnemyManager
 {
     private readonly List<Enemy> _enemies = new List<Enemy>();
@@ -14,7 +15,7 @@ public class EnemyManager
     private const int SpacingY = 70;
 
 
-    public void SpawnEnemyFleet(Texture2D enemyTexture, Vector2 startPosition)
+    public void SpawnEnemyFleet(Texture2D enemyTexture, Vector2 startPosition, int stopX, int stopY)
     {
         _enemies.Clear();
 
@@ -38,3 +39,4 @@ public class EnemyManager
         }
     }
 }
+*/

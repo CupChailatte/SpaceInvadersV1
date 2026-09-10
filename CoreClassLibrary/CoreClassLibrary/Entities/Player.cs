@@ -41,7 +41,7 @@ public class Player
     // Metod som renderar player sprite och dens positions värdet till fönstret
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(_playerSprite, PlayerPosition, Color.Green);
+        spriteBatch.Draw(_playerSprite, PlayerPosition, Color.White);
     }
 
 }
