@@ -15,11 +15,16 @@ public class Player
     public float Speed { get; set; } = 1000f;
     private BulletManager _bulletManager;
 
+    // ---Variabler för liv och text --- 
+
     public Player(Texture2D playerSprite, Texture2D bulletTexture, Vector2 playerPosition)
     {
         _playerSprite = playerSprite;
         PlayerPosition = playerPosition;
         _bulletManager = new BulletManager(bulletTexture);
+
+        //--- Init liv och text ---
+
     }
 
     //Player input 
@@ -42,7 +47,7 @@ public class Player
             //laser goes here!
             Vector2 bulletOrigin = new Vector2(PlayerPosition.X + (_playerSprite.Width / 2), PlayerPosition.Y);
 
-            _bulletManager.ShootBullet(bulletOrigin, 500f, new Vector2(0, -1), 10);
+            _bulletManager.ShootBullet(bulletOrigin, 2000f, new Vector2(0, -1), 10); // Skott inställning - hastighet, skada eller position
 
         }
         _bulletManager.Update(deltaTime);
@@ -57,6 +62,8 @@ public class Player
     {
         spriteBatch.Draw(_playerSprite, PlayerPosition, Color.White);
         _bulletManager.Draw(spriteBatch);
+
+        ///--- Ritar ut texten - färg, typsnit, sträng och position
     }
 
 }

@@ -82,7 +82,6 @@ public class Game1 : Game
         //Renderar player till fönstret
         _player.Draw(_spriteBatch);
         _enemyManager.Draw(_spriteBatch);
-
         _spriteBatch.End();//avslutar sprite batch när spelet är avslutad. 
         // TODO: Add your drawing code here
         base.Draw(gameTime);
