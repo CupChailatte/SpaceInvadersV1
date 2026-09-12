@@ -3,37 +3,36 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace CoreClassLibrary.Entities;
-
-
+//Data Blueprint of Bullet
 public class Bullet
 {
-    public float Velocity { get; set; } = 500f;
-    public int Damage { get; set; } = 10;
+    //properties
     private Texture2D _bulletTexture;
-    public Vector2 Position;
+    private Vector2 _startPosition;
+    private float _speed;
+    private float _damage;
+    private Vector2 _direction;
 
 
-    public Bullet(Texture2D texture, Vector2 startPosition, float speed, int dmg)
+    public Vector2 startPosition => _startPosition; //public egenskap så att manager och collision algoritm kan se var den är. 
+    public bool IsOffScreen => _startPosition.Y < 0; // Egenskap som kollar om bullet är borta från fönstret - garbage collection 
+
+    public Bullet(Texture2D texture, Vector2 startPosition, float speed, Vector2 direction, float damage)
     {
         _bulletTexture = texture;
-        Position = startPosition;
-        Velocity = speed;
-        Damage = dmg;
+        _startPosition = startPosition;
+        _speed = speed;
+        _direction = direction;
+        _damage = damage;
     }
 
-    public void Shoot(Texture2D texture, Vector2 playerPosition)
+    public void Update(float deltaTime)
     {
-
+        // position = position + (direction * speed * time)
+        _startPosition += _direction * _speed * deltaTime;
     }
-
-    public void Update()
-    {
-        Position.Y = Position.Y + 1;
-    }
-
     public void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(_bulletTexture, Position, Color.Red);
-
+        spriteBatch.Draw(_bulletTexture, _startPosition, Color.Red);
     }
 }

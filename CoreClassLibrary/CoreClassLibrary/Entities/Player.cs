@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,33 +13,39 @@ public class Player
     private readonly Texture2D _playerSprite;
     public Vector2 PlayerPosition;
     public float Speed { get; set; } = 1000f;
-    Bullet _bullet;
+    private BulletManager _bulletManager;
 
-    public Player(Texture2D playerSprite, Vector2 playerPosition)
+    public Player(Texture2D playerSprite, Texture2D bulletTexture, Vector2 playerPosition)
     {
         _playerSprite = playerSprite;
         PlayerPosition = playerPosition;
+        _bulletManager = new BulletManager(bulletTexture);
     }
 
     //Player input 
-    public void Update(GameTime gameTime, int screenWidth)
+    public void Update(GameTime gameTime, int screenWidth, InputManager input)
     {
         float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-        if (InputManager.IsKeyDown(Keys.Left) || InputManager.IsKeyDown(Keys.A))
+        if (input.IsKeyDown(Keys.Left) || input.IsKeyDown(Keys.A))
         {
             PlayerPosition.X -= Speed * deltaTime;
         }
-        if (InputManager.IsKeyDown(Keys.Right) || InputManager.IsKeyDown(Keys.D))
+        if (input.IsKeyDown(Keys.Right) || input.IsKeyDown(Keys.D))
         {
             PlayerPosition.X += Speed * deltaTime;
         }
         //* Skjuta /
         // TODO: Mouse input 
-        if (InputManager.IsKeyDown(Keys.Space))
+        if (input.IsKeyDown(Keys.Space))
         {
-            _bullet.Update();
+            //laser goes here!
+            Vector2 bulletOrigin = new Vector2(PlayerPosition.X + (_playerSprite.Width / 2), PlayerPosition.Y);
+
+            _bulletManager.ShootBullet(bulletOrigin, 500f, new Vector2(0, -1), 10);
+
         }
+        _bulletManager.Update(deltaTime);
 
 
         //Håller spelaren infanför spelfönstret. 
@@ -49,6 +56,7 @@ public class Player
     public void Draw(SpriteBatch spriteBatch)
     {
         spriteBatch.Draw(_playerSprite, PlayerPosition, Color.White);
+        _bulletManager.Draw(spriteBatch);
     }
 
 }
